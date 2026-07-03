@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Studio — Free Professional TTS</title>
+<style>
+:root{
+  --primary:#6366F1;
+  --accent:#8B5CF6;
+  --bg:#0A0A0F;
+  --card:#13131A;
+  --border:#1E1E2E;
+  --text:#F1F0FF;
+  --muted:#8B8AAE;
+  --success:#10B981;
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+
+nav{background:#0D0D14;border-bottom:1px solid var(--border);padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo-text{font-size:17px;font-weight:700;}
+.badge{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-size:11px;padding:4px 12px;border-radius:20px;font-weight:600;}
+
+.hero{text-align:center;padding:48px 20px 32px;}
+.hero h1{font-size:clamp(24px,5vw,38px);font-weight:800;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.hero p{color:var(--muted);font-size:15px;max-width:480px;margin:0 auto;}
+
+.container{max-width:720px;margin:0 auto;padding:0 16px 60px;}
+
+.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:24px;margin-bottom:16px;}
+
+label.lbl{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+textarea{width:100%;padding:14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);background:#0A0A0F;outline:none;font-family:inherit;resize:vertical;min-height:130px;transition:border 0.2s;}
+textarea:focus{border-color:var(--primary);}
+
+.voice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:0;}
+.voice-btn{padding:12px 8px;border:1.5px solid var(--border);border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center;}
+.voice-btn:hover{border-color:var(--primary);color:var(--text);}
+.voice-btn.active{border-color:var(--primary);background:#6366F120;color:var(--text);}
+.voice-btn .icon{display:block;font-size:20px;margin-bottom:4px;}
+
+.vibe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.vibe-btn{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:left;}
+.vibe-btn:hover{border-color:var(--accent);color:var(--text);}
+.vibe-btn.active{border-color:var(--accent);background:#8B5CF620;color:var(--text);}
+
+.custom-prompt{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;color:var(--text);background:#0A0A0F;outline:none;font-family:inherit;margin-top:10px;transition:border 0.2s;}
+.custom-prompt:focus{border-color:var(--primary);}
+
+.btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;box-shadow:0 4px 20px #6366F140;}
+.btn:hover{opacity:0.9;transform:translateY(-1px);}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+.result{background:var(--card);border-radius:var(--radius);border:1px solid var(--success);padding:20px;display:none;margin-top:16px;}
+.result h3{color:var(--success);font-size:14px;margin-bottom:12px;}
+audio{width:100%;border-radius:8px;}
+.dl-btn{display:block;text-align:center;margin-top:12px;padding:10px;background:#10B98120;border:1px solid var(--success);border-radius:10px;color:var(--success);font-weight:600;font-size:13px;cursor:pointer;}
+
+.loader{display:inline-block;width:18px;height:18px;border:3px solid #ffffff30;border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status{text-align:center;padding:14px;color:var(--muted);font-size:13px;margin-top:8px;}
+
+@media(max-width:480px){
+  .voice-grid{grid-template-columns:repeat(2,1fr);}
+  .vibe-grid{grid-template-columns:1fr;}
+  .card{padding:16px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🎙️</div>
+    <div class="logo-text">AI Voice Studio</div>
+  </div>
+  <div class="badge">✨ Free</div>
+</nav>
+
+<div class="hero">
+  <h1>Professional AI Text to Speech</h1>
+  <p>Choose a voice, set the style, and generate studio-quality audio instantly.</p>
+</div>
+
+<div class="container">
+
+  <!-- TEXT INPUT -->
+  <div class="card">
+    <label class="lbl">Your Text</label>
+    <textarea id="textInput" placeholder="Type anything you want spoken... English works best for highest quality."></textarea>
+  </div>
+
+  <!-- VOICE SELECTION -->
+  <div class="card">
+    <label class="lbl">Choose Voice</label>
+    <div class="voice-grid">
+      <button class="voice-btn active" onclick="selectVoice('alloy',this)"><span class="icon">🧑</span>Alloy</button>
+      <button class="voice-btn" onclick="selectVoice('echo',this)"><span class="icon">👨</span>Echo</button>
+      <button class="voice-btn" onclick="selectVoice('fable',this)"><span class="icon">🧙</span>Fable</button>
+      <button class="voice-btn" onclick="selectVoice('onyx',this)"><span class="icon">🎤</span>Onyx</button>
+      <button class="voice-btn" onclick="selectVoice('nova',this)"><span class="icon">👩</span>Nova</button>
+      <button class="voice-btn" onclick="selectVoice('shimmer',this)"><span class="icon">✨</span>Shimmer</button>
+      <button class="voice-btn" onclick="selectVoice('ash',this)"><span class="icon">🌿</span>Ash</button>
+      <button class="voice-btn" onclick="selectVoice('ballad',this)"><span class="icon">🎵</span>Ballad</button>
+      <button class="voice-btn" onclick="selectVoice('coral',this)"><span class="icon">🪸</span>Coral</button>
+      <button class="voice-btn" onclick="selectVoice('sage',this)"><span class="icon">🍃</span>Sage</button>
+      <button class="voice-btn" onclick="selectVoice('verse',this)"><span class="icon">📖</span>Verse</button>
+      <button class="voice-btn" onclick="selectVoice('marin',this)"><span class="icon">🌊</span>Marin</button>
+    </div>
+  </div>
+
+  <!-- VIBE / STYLE -->
+  <div class="card">
+    <label class="lbl">Voice Style</label>
+    <div class="vibe-grid">
+      <button class="vibe-btn active" onclick="selectVibe('neutral',this,'')">😐 Neutral</button>
+      <button class="vibe-btn" onclick="selectVibe('enthusiastic',this,'Speak with high energy and enthusiasm, like you are excited about the topic.')">🔥 Enthusiastic</button>
+      <button class="vibe-btn" onclick="selectVibe('calm',this,'Speak in a calm, soothing, and relaxed tone. Slow paced and peaceful.')">😌 Calm</button>
+      <button class="vibe-btn" onclick="selectVibe('serious',this,'Speak in a serious, authoritative, and professional tone.')">💼 Professional</button>
+      <button class="vibe-btn" onclick="selectVibe('friendly',this,'Speak in a warm, friendly, and conversational tone, like talking to a friend.')">😊 Friendly</button>
+      <button class="vibe-btn" onclick="selectVibe('storyteller',this,'Speak like a captivating storyteller, with dramatic pauses and expressive tone.')">📖 Storyteller</button>
+      <button class="vibe-btn" onclick="selectVibe('news',this,'Speak like a professional news anchor, clear, authoritative and neutral.')">📰 News Anchor</button>
+      <button class="vibe-btn" onclick="selectVibe('whisper',this,'Speak in a soft, gentle whisper tone.')">🤫 Whisper</button>
+    </div>
+    <input type="text" class="custom-prompt" id="customPrompt" placeholder="Or write custom style instructions... (e.g. Speak like a pirate)">
+  </div>
+
+  <!-- GENERATE -->
+  <button class="btn" id="genBtn" onclick="generate()">
+    🎙️ Generate Speech
+  </button>
+
+  <div class="status" id="statusMsg"></div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+    <h3>✅ Audio Ready!</h3>
+    <audio id="audioPlayer" controls></audio>
+    <div class="dl-btn" onclick="downloadAudio()">⬇ Download Audio</div>
+  </div>
+
+</div>
+
+<script>
+let selectedVoice = 'alloy';
+let selectedPrompt = '';
+let audioBlob = null;
+
+function selectVoice(voice, btn) {
+  selectedVoice = voice;
+  document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectVibe(name, btn, prompt) {
+  selectedPrompt = prompt;
+  document.querySelectorAll('.vibe-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('customPrompt').value = '';
+}
+
+document.getElementById('customPrompt').addEventListener('input', function() {
+  if (this.value.trim()) {
+    selectedPrompt = this.value.trim();
+    document.querySelectorAll('.vibe-btn').forEach(b => b.classList.remove('active'));
+  }
+});
+
+async function generate() {
+  const text = document.getElementById('textInput').value.trim();
+  if (!text) { alert('Please enter some text!'); return; }
+
+  const customPrompt = document.getElementById('customPrompt').value.trim();
+  const prompt = customPrompt || selectedPrompt;
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Generating...';
+  document.getElementById('statusMsg').textContent = '⏳ Please wait...';
+  document.getElementById('result').style.display = 'none';
+
+  try {
+    const res = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, voice: selectedVoice, prompt })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'API error');
+    }
+
+    audioBlob = await res.blob();
+    const url = URL.createObjectURL(audioBlob);
+    document.getElementById('audioPlayer').src = url;
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('statusMsg').textContent = '';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+
+  } catch(e) {
+    document.getElementById('statusMsg').textContent = '❌ Error: ' + e.message;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '🎙️ Generate Speech';
+}
+
+function downloadAudio() {
+  if (!audioBlob) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(audioBlob);
+  a.download = 'ai_voice_studio.wav';
+  a.click();
+}
+</script>
+</body>
+</html>
