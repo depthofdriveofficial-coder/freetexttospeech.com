@@ -42,12 +42,14 @@ class handler(BaseHTTPRequestHandler):
                     "Content-Type": f"multipart/form-data; boundary={boundary}",
                     "Accept": "*/*",
                     "Origin": "https://www.openai.fm",
-                    "Referer": "https://www.openai.fm/",
+                    "Referer": "https://www.openai.fm/worker-444eae9e2e1bdd6edd8969f319655e70.js",
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "Accept-Language": "en-US,en;q=0.9",
                     "Sec-Fetch-Site": "same-origin",
                     "Sec-Fetch-Mode": "cors",
                     "Sec-Fetch-Dest": "empty",
-                    "Accept-Language": "en-US,en;q=0.9",
+                    "Priority": "u=1, i",
                 }
             )
 
