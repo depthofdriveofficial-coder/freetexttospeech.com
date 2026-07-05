@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Voice Studio — Free Professional TTS</title>
+<title>VoxStudio — Free AI Voice Generator</title>
 <style>
 :root{
   --primary:#6366F1;
   --accent:#8B5CF6;
-  --bg:#0A0A0F;
-  --card:#13131A;
+  --bg:#09090F;
+  --card:#12121A;
   --border:#1E1E2E;
   --text:#F1F0FF;
   --muted:#8B8AAE;
@@ -25,49 +25,54 @@ nav{background:#0D0D14;border-bottom:1px solid var(--border);padding:0 20px;heig
 .logo-text{font-size:17px;font-weight:700;}
 .badge{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-size:11px;padding:4px 12px;border-radius:20px;font-weight:600;}
 
-.hero{text-align:center;padding:48px 20px 32px;}
-.hero h1{font-size:clamp(24px,5vw,38px);font-weight:800;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
-.hero p{color:var(--muted);font-size:15px;max-width:480px;margin:0 auto;}
+.hero{text-align:center;padding:44px 20px 28px;}
+.hero h1{font-size:clamp(22px,5vw,36px);font-weight:800;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.hero p{color:var(--muted);font-size:14px;max-width:460px;margin:0 auto;}
 
-.container{max-width:720px;margin:0 auto;padding:0 16px 60px;}
+.tabs{display:flex;gap:8px;justify-content:center;margin:20px 20px 0;}
+.tab{padding:10px 24px;border-radius:12px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;}
+.tab.active{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-color:transparent;}
 
-.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:24px;margin-bottom:16px;}
+.container{max-width:680px;margin:0 auto;padding:16px 16px 60px;}
+.page{display:none;} .page.active{display:block;}
 
+.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:22px;margin-bottom:14px;}
 label.lbl{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
-textarea{width:100%;padding:14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);background:#0A0A0F;outline:none;font-family:inherit;resize:vertical;min-height:130px;transition:border 0.2s;}
-textarea:focus{border-color:var(--primary);}
 
-.voice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:0;}
-.voice-btn{padding:12px 8px;border:1.5px solid var(--border);border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:center;}
-.voice-btn:hover{border-color:var(--primary);color:var(--text);}
-.voice-btn.active{border-color:var(--primary);background:#6366F120;color:var(--text);}
-.voice-btn .icon{display:block;font-size:20px;margin-bottom:4px;}
+textarea,input[type=text]{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);background:#09090F;outline:none;font-family:inherit;transition:border 0.2s;}
+textarea:focus,input[type=text]:focus{border-color:var(--primary);}
+textarea{resize:vertical;min-height:120px;}
 
-.vibe-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.vibe-btn{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:left;}
-.vibe-btn:hover{border-color:var(--accent);color:var(--text);}
-.vibe-btn.active{border-color:var(--accent);background:#8B5CF620;color:var(--text);}
+.voice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.vbtn{padding:12px;border:1.5px solid var(--border);border-radius:12px;background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-align:left;display:flex;align-items:center;gap:8px;}
+.vbtn:hover{border-color:var(--primary);color:var(--text);}
+.vbtn.active{border-color:var(--primary);background:#6366F120;color:var(--text);}
 
-.custom-prompt{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;color:var(--text);background:#0A0A0F;outline:none;font-family:inherit;margin-top:10px;transition:border 0.2s;}
-.custom-prompt:focus{border-color:var(--primary);}
+.tip{background:#6366F110;border:1px solid #6366F130;border-radius:12px;padding:12px 14px;font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;}
+.tip strong{color:var(--accent);}
 
-.btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;box-shadow:0 4px 20px #6366F140;}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;box-shadow:0 4px 20px #6366F130;}
 .btn:hover{opacity:0.9;transform:translateY(-1px);}
 .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
 
-.result{background:var(--card);border-radius:var(--radius);border:1px solid var(--success);padding:20px;display:none;margin-top:16px;}
+.result{background:var(--card);border-radius:var(--radius);border:1px solid var(--success);padding:20px;display:none;margin-top:14px;}
 .result h3{color:var(--success);font-size:14px;margin-bottom:12px;}
 audio{width:100%;border-radius:8px;}
-.dl-btn{display:block;text-align:center;margin-top:12px;padding:10px;background:#10B98120;border:1px solid var(--success);border-radius:10px;color:var(--success);font-weight:600;font-size:13px;cursor:pointer;}
+.dl-btn{display:block;text-align:center;margin-top:10px;padding:10px;background:#10B98115;border:1px solid var(--success);border-radius:10px;color:var(--success);font-weight:600;font-size:13px;cursor:pointer;}
 
-.loader{display:inline-block;width:18px;height:18px;border:3px solid #ffffff30;border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+.loader{display:inline-block;width:16px;height:16px;border:2px solid #ffffff30;border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.status{text-align:center;padding:14px;color:var(--muted);font-size:13px;margin-top:8px;}
+.status{text-align:center;padding:12px;color:var(--muted);font-size:13px;margin-top:8px;}
+
+.upload-box{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.upload-box:hover{border-color:var(--primary);background:#6366F110;}
+.upload-box p{color:var(--muted);font-size:13px;margin-top:6px;}
 
 @media(max-width:480px){
-  .voice-grid{grid-template-columns:repeat(2,1fr);}
-  .vibe-grid{grid-template-columns:1fr;}
+  .voice-grid{grid-template-columns:1fr;}
   .card{padding:16px;}
+  .tabs{gap:6px;}
+  .tab{padding:9px 16px;font-size:13px;}
 }
 </style>
 </head>
@@ -76,145 +81,200 @@ audio{width:100%;border-radius:8px;}
 <nav>
   <div class="logo">
     <div class="logo-icon">🎙️</div>
-    <div class="logo-text">AI Voice Studio</div>
+    <div class="logo-text">VoxStudio</div>
   </div>
-  <div class="badge">✨ Free</div>
+  <div class="badge">✨ Free AI</div>
 </nav>
 
 <div class="hero">
-  <h1>Professional AI Text to Speech</h1>
-  <p>Choose a voice, set the style, and generate studio-quality audio instantly.</p>
+  <h1>Free AI Voice Generator</h1>
+  <p>Design any voice from text description, or clone a voice from audio. 30 languages. Studio quality.</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('design',this)">🎨 Voice Design</button>
+  <button class="tab" onclick="switchTab('clone',this)">🎭 Voice Clone</button>
 </div>
 
 <div class="container">
 
-  <!-- TEXT INPUT -->
-  <div class="card">
-    <label class="lbl">Your Text</label>
-    <textarea id="textInput" placeholder="Type anything you want spoken... English works best for highest quality."></textarea>
-  </div>
+  <!-- VOICE DESIGN PAGE -->
+  <div class="page active" id="design-page">
+    <div class="tip">
+      💡 <strong>Voice Design:</strong> Describe any voice in text — gender, age, tone, emotion, accent — and AI will create it! No audio needed.
+    </div>
 
-  <!-- VOICE SELECTION -->
-  <div class="card">
-    <label class="lbl">Choose Voice</label>
-    <div class="voice-grid">
-      <button class="voice-btn active" onclick="selectVoice('alloy',this)"><span class="icon">🧑</span>Alloy</button>
-      <button class="voice-btn" onclick="selectVoice('echo',this)"><span class="icon">👨</span>Echo</button>
-      <button class="voice-btn" onclick="selectVoice('fable',this)"><span class="icon">🧙</span>Fable</button>
-      <button class="voice-btn" onclick="selectVoice('onyx',this)"><span class="icon">🎤</span>Onyx</button>
-      <button class="voice-btn" onclick="selectVoice('nova',this)"><span class="icon">👩</span>Nova</button>
-      <button class="voice-btn" onclick="selectVoice('shimmer',this)"><span class="icon">✨</span>Shimmer</button>
-      <button class="voice-btn" onclick="selectVoice('ash',this)"><span class="icon">🌿</span>Ash</button>
-      <button class="voice-btn" onclick="selectVoice('ballad',this)"><span class="icon">🎵</span>Ballad</button>
-      <button class="voice-btn" onclick="selectVoice('coral',this)"><span class="icon">🪸</span>Coral</button>
-      <button class="voice-btn" onclick="selectVoice('sage',this)"><span class="icon">🍃</span>Sage</button>
-      <button class="voice-btn" onclick="selectVoice('verse',this)"><span class="icon">📖</span>Verse</button>
-      <button class="voice-btn" onclick="selectVoice('marin',this)"><span class="icon">🌊</span>Marin</button>
+    <div class="card">
+      <label class="lbl">Describe Your Voice</label>
+      <div class="voice-grid" style="margin-bottom:12px">
+        <button class="vbtn active" onclick="selectPreset(this,'A young woman, warm and friendly voice, clear pronunciation')">👩 Young Woman</button>
+        <button class="vbtn" onclick="selectPreset(this,'A middle-aged man, deep and authoritative voice, news anchor style')">👨 News Anchor</button>
+        <button class="vbtn" onclick="selectPreset(this,'A cheerful young man, energetic and enthusiastic, fast paced')">🧑 Energetic Male</button>
+        <button class="vbtn" onclick="selectPreset(this,'An elderly wise man, calm and gentle voice, slow and clear')">🧓 Wise Elder</button>
+        <button class="vbtn" onclick="selectPreset(this,'A professional female narrator, neutral accent, clear and crisp')">🎙️ Narrator</button>
+        <button class="vbtn" onclick="selectPreset(this,'A dramatic storyteller, expressive and theatrical voice')">📖 Storyteller</button>
+      </div>
+      <input type="text" id="voiceDesc" placeholder="Or write custom description... (e.g. A young Pakistani man, warm tone)" value="A young woman, warm and friendly voice, clear pronunciation">
+    </div>
+
+    <div class="card">
+      <label class="lbl">Text to Speak</label>
+      <textarea id="designText" placeholder="Type anything... Works best in English. For Urdu/Hindi use Roman script."></textarea>
+    </div>
+
+    <button class="btn" id="designBtn" onclick="generateDesign()">
+      🎨 Generate Voice
+    </button>
+    <div class="status" id="designStatus"></div>
+    <div class="result" id="designResult">
+      <h3>✅ Voice Ready!</h3>
+      <audio id="designAudio" controls></audio>
+      <div class="dl-btn" onclick="downloadAudio('designAudio','voxstudio_design.wav')">⬇ Download</div>
     </div>
   </div>
 
-  <!-- VIBE / STYLE -->
-  <div class="card">
-    <label class="lbl">Voice Style</label>
-    <div class="vibe-grid">
-      <button class="vibe-btn active" onclick="selectVibe('neutral',this,'')">😐 Neutral</button>
-      <button class="vibe-btn" onclick="selectVibe('enthusiastic',this,'Speak with high energy and enthusiasm, like you are excited about the topic.')">🔥 Enthusiastic</button>
-      <button class="vibe-btn" onclick="selectVibe('calm',this,'Speak in a calm, soothing, and relaxed tone. Slow paced and peaceful.')">😌 Calm</button>
-      <button class="vibe-btn" onclick="selectVibe('serious',this,'Speak in a serious, authoritative, and professional tone.')">💼 Professional</button>
-      <button class="vibe-btn" onclick="selectVibe('friendly',this,'Speak in a warm, friendly, and conversational tone, like talking to a friend.')">😊 Friendly</button>
-      <button class="vibe-btn" onclick="selectVibe('storyteller',this,'Speak like a captivating storyteller, with dramatic pauses and expressive tone.')">📖 Storyteller</button>
-      <button class="vibe-btn" onclick="selectVibe('news',this,'Speak like a professional news anchor, clear, authoritative and neutral.')">📰 News Anchor</button>
-      <button class="vibe-btn" onclick="selectVibe('whisper',this,'Speak in a soft, gentle whisper tone.')">🤫 Whisper</button>
+  <!-- VOICE CLONE PAGE -->
+  <div class="page" id="clone-page">
+    <div class="tip">
+      💡 <strong>Voice Clone:</strong> Upload 6-30 seconds of any voice. AI will speak your text in that exact voice!
     </div>
-    <input type="text" class="custom-prompt" id="customPrompt" placeholder="Or write custom style instructions... (e.g. Speak like a pirate)">
-  </div>
 
-  <!-- GENERATE -->
-  <button class="btn" id="genBtn" onclick="generate()">
-    🎙️ Generate Speech
-  </button>
+    <div class="card">
+      <label class="lbl">Upload Voice Sample</label>
+      <div class="upload-box" onclick="document.getElementById('cloneFile').click()">
+        <div style="font-size:28px">🎵</div>
+        <p><strong style="color:var(--accent)">Click to upload audio</strong><br>WAV, MP3, M4A (6-30 seconds)</p>
+        <input type="file" id="cloneFile" accept="audio/*" style="display:none" onchange="handleFile(event)">
+      </div>
+      <div id="fileStatus"></div>
+    </div>
 
-  <div class="status" id="statusMsg"></div>
+    <div class="card">
+      <label class="lbl">Text to Speak</label>
+      <textarea id="cloneText" placeholder="Type text to speak in the cloned voice..."></textarea>
+    </div>
 
-  <!-- RESULT -->
-  <div class="result" id="result">
-    <h3>✅ Audio Ready!</h3>
-    <audio id="audioPlayer" controls></audio>
-    <div class="dl-btn" onclick="downloadAudio()">⬇ Download Audio</div>
+    <button class="btn" id="cloneBtn" onclick="generateClone()">
+      🎭 Clone Voice
+    </button>
+    <div class="status" id="cloneStatus"></div>
+    <div class="result" id="cloneResult">
+      <h3>✅ Cloned Voice Ready!</h3>
+      <audio id="cloneAudio" controls></audio>
+      <div class="dl-btn" onclick="downloadAudio('cloneAudio','voxstudio_clone.wav')">⬇ Download</div>
+    </div>
   </div>
 
 </div>
 
 <script>
-let selectedVoice = 'alloy';
-let selectedPrompt = '';
-let audioBlob = null;
+let cloneFile = null;
+let audioBlobs = {};
 
-function selectVoice(voice, btn) {
-  selectedVoice = voice;
-  document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('active'));
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
+  document.getElementById(tab + '-page').classList.add('active');
 }
 
-function selectVibe(name, btn, prompt) {
-  selectedPrompt = prompt;
-  document.querySelectorAll('.vibe-btn').forEach(b => b.classList.remove('active'));
+function selectPreset(btn, desc) {
+  document.querySelectorAll('.vbtn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('customPrompt').value = '';
+  document.getElementById('voiceDesc').value = desc;
 }
 
-document.getElementById('customPrompt').addEventListener('input', function() {
-  if (this.value.trim()) {
-    selectedPrompt = this.value.trim();
-    document.querySelectorAll('.vibe-btn').forEach(b => b.classList.remove('active'));
-  }
-});
+function handleFile(e) {
+  cloneFile = e.target.files[0];
+  if (!cloneFile) return;
+  document.getElementById('fileStatus').innerHTML = `<p style="color:var(--success);font-size:13px;margin-top:8px">✅ ${cloneFile.name} ready!</p>`;
+}
 
-async function generate() {
-  const text = document.getElementById('textInput').value.trim();
-  if (!text) { alert('Please enter some text!'); return; }
+async function generateDesign() {
+  const text = document.getElementById('designText').value.trim();
+  const voiceDesc = document.getElementById('voiceDesc').value.trim();
+  if (!text) { alert('Please enter text!'); return; }
 
-  const customPrompt = document.getElementById('customPrompt').value.trim();
-  const prompt = customPrompt || selectedPrompt;
-
-  const btn = document.getElementById('genBtn');
+  const btn = document.getElementById('designBtn');
   btn.disabled = true;
   btn.innerHTML = '<span class="loader"></span> Generating...';
-  document.getElementById('statusMsg').textContent = '⏳ Please wait...';
-  document.getElementById('result').style.display = 'none';
+  document.getElementById('designStatus').textContent = '⏳ Please wait 20-40 seconds...';
+  document.getElementById('designResult').style.display = 'none';
 
   try {
     const res = await fetch('/api/tts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, voice: selectedVoice, prompt })
+      body: JSON.stringify({ text, voice_desc: voiceDesc })
     });
 
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'API error');
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'API error ' + res.status);
     }
 
-    audioBlob = await res.blob();
-    const url = URL.createObjectURL(audioBlob);
-    document.getElementById('audioPlayer').src = url;
-    document.getElementById('result').style.display = 'block';
-    document.getElementById('statusMsg').textContent = '';
-    document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    const blob = await res.blob();
+    audioBlobs['design'] = blob;
+    document.getElementById('designAudio').src = URL.createObjectURL(blob);
+    document.getElementById('designResult').style.display = 'block';
+    document.getElementById('designStatus').textContent = '';
+    document.getElementById('designResult').scrollIntoView({ behavior: 'smooth' });
 
   } catch(e) {
-    document.getElementById('statusMsg').textContent = '❌ Error: ' + e.message;
+    document.getElementById('designStatus').textContent = '❌ Error: ' + e.message;
   }
 
   btn.disabled = false;
-  btn.innerHTML = '🎙️ Generate Speech';
+  btn.innerHTML = '🎨 Generate Voice';
 }
 
-function downloadAudio() {
-  if (!audioBlob) return;
+async function generateClone() {
+  if (!cloneFile) { alert('Please upload a voice sample!'); return; }
+  const text = document.getElementById('cloneText').value.trim();
+  if (!text) { alert('Please enter text!'); return; }
+
+  const btn = document.getElementById('cloneBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loader"></span> Cloning...';
+  document.getElementById('cloneStatus').textContent = '⏳ Please wait 20-60 seconds...';
+  document.getElementById('cloneResult').style.display = 'none';
+
+  try {
+    const form = new FormData();
+    form.append('text', text);
+    form.append('audio', cloneFile);
+
+    const res = await fetch('/api/clone', {
+      method: 'POST',
+      body: form
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'API error ' + res.status);
+    }
+
+    const blob = await res.blob();
+    audioBlobs['clone'] = blob;
+    document.getElementById('cloneAudio').src = URL.createObjectURL(blob);
+    document.getElementById('cloneResult').style.display = 'block';
+    document.getElementById('cloneStatus').textContent = '';
+    document.getElementById('cloneResult').scrollIntoView({ behavior: 'smooth' });
+
+  } catch(e) {
+    document.getElementById('cloneStatus').textContent = '❌ Error: ' + e.message;
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '🎭 Clone Voice';
+}
+
+function downloadAudio(id, filename) {
+  const audio = document.getElementById(id);
+  if (!audio.src) return;
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(audioBlob);
-  a.download = 'ai_voice_studio.wav';
+  a.href = audio.src;
+  a.download = filename;
   a.click();
 }
 </script>
